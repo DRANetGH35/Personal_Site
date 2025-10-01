@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, redirect
 from flask_login import current_user
 from extensions import db
 from models import User
@@ -16,3 +16,17 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        entered_password = request.form.get('password')
+        password_confirmation = request.form.get('confirm_password')
+        if entered_password == password_confirmation:
+            #enter user info into database
+            pass
+        else:
+            print('passwords dont match')
+        return render_template('register.html')
+    else:
+        return render_template('register.html')

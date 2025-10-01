@@ -1,20 +1,28 @@
 {% extends "base.html" %} {% block content %}
 
 <body>
-<div class="py-4 mx-auto text-center" style="width: 50%;">
-    <form style="padding: 20%;">
-        <div>
-        <label class="form-label">username</label>
-        <input class="form-text" type="text" id="username" name="username">
+<div class="py-4 mx-auto text-center">
+    <form method="post" action="login" class="container border rounded" style="padding: 10px; margin: 20%;">
+        <div class="row">
+            <div class="col">
+            <label class="form-label" style="justify:right;">username</label>
+            </div>
+            <div class="col">
+            <input class="form-text" type="text" id="username" name="username">
+            </div>
         </div>
-        <div>
-        <label class="form-label">password</label>
-        <input class="form-text" type="password" id="password" name="password">
+        <div class="row">
+            <div class="col">
+            <label class="form-label">password</label>
+            </div>
+            <div class="col">
+            <input class="form-text" type="password" id="password" name="password">
+            </div>
         </div>
-        <div>
+
         <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
-        </div>
     </form>
+    <a class=btn href="/register">Register</a>
 </div>
 </body>
 {% include 'footer.html' %}
