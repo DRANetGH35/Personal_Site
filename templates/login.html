@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+
+<body>
+<div class="py-4 mx-auto text-center" style="width: 50%;">
+    <form style="padding: 20%;">
+        <div>
+        <label class="form-label">username</label>
+        <input class="form-text" type="text" id="username" name="username">
+        </div>
+        <div>
+        <label class="form-label">password</label>
+        <input class="form-text" type="password" id="password" name="password">
+        </div>
+        <div>
+        <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
+        </div>
+    </form>
+</div>
+</body>
+{% include 'footer.html' %}
+
+{% endblock %}
