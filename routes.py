@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user
 from extensions import db
 from models import User
@@ -25,6 +25,7 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == "POST":
         username = request.form.get('username')
         password = request.form.get('password')
@@ -33,13 +34,14 @@ def login():
         else:
             user = db.session.execute(db.select(User).where(User.name == username)).scalar()
             login_user(user)
-        return render_template('login.html')
+            return redirect(url_for('index'))
+        return render_template('login.html', error=error)
     elif request.method == "GET":
         return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    error=''
+    error = None
     if request.method == "POST":
         username = request.form.get('username')
         entered_password = request.form.get('password')

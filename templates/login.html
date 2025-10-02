@@ -30,7 +30,9 @@
             </tr>
         </table>
     </form>
-    <p class="form-label" id="errors"></p>
+    {% if error %}
+    <p class="form-label" id="errors" style="color: red;">{{ error }}</p>
+    {% endif %}
     <a class=btn href="/register">Register</a>
 </div>
 </body>
