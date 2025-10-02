@@ -4,7 +4,7 @@
 
 <div class="py-4 mx-auto text-center center" style=" margin-top: 25vh; ">
     <h1>Register</h1>
-    <form method="post" action="login" class="container border rounded" style="padding: 10px;width: 325px;">
+    <form method="post" action="register" class="container border rounded" style="padding: 10px;width: 325px;">
         <table>
             <tr>
                 <td>
@@ -39,7 +39,9 @@
             </tr>
         </table>
     </form>
-    <p class="form-label" id="errors"></p>
+    {% if error %}
+    <p class="form-label" id="errors" style="color: red;">{{error}}</p>
+    {% endif %}
     <a class=btn href="/register">Register</a>
 </div>
 </body>
