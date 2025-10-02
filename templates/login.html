@@ -1,27 +1,36 @@
 {% extends "base.html" %} {% block content %}
-
+{% include 'navbar.html' %}
 <body>
-<div class="py-4 mx-auto text-center">
-    <form method="post" action="login" class="container border rounded" style="padding: 10px; margin: 20%;">
-        <div class="row">
-            <div class="col">
-            <label class="form-label" style="justify:right;">username</label>
-            </div>
-            <div class="col">
-            <input class="form-text" type="text" id="username" name="username">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-            <label class="form-label">password</label>
-            </div>
-            <div class="col">
-            <input class="form-text" type="password" id="password" name="password">
-            </div>
-        </div>
-
-        <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
+<div class="py-4 mx-auto text-center center" style="margin-top: 25vh;">
+    <h1>Log In</h1>
+    <form method="post" action="login" class="container border rounded" style="padding: 10px;  width: 325px;">
+        <table>
+            <tr>
+                <td>
+                <label class="form-label" style="justify:right;">username</label>
+                </td>
+                <td>
+                <input class="form-text" type="text" id="username" name="username">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <label class="form-label">password</label>
+                </td>
+                <td>
+                <input class="form-text" type="password" id="password" name="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
+                </td>
+            </tr>
+        </table>
     </form>
+    <p class="form-label" id="errors"></p>
     <a class=btn href="/register">Register</a>
 </div>
 </body>
