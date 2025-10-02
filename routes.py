@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect
-from flask_login import current_user
+from flask_login import current_user, login_user
 from extensions import db
 from models import User
 from app import create_app
@@ -11,6 +11,9 @@ def user_exists(username):
             return True
     except AttributeError:
         return False
+def password_correct(username, password):
+    user = db.session.execute(db.select(User).where(User.name == username)).scalar()
+    return check_password_hash(user.password, password)
 
 app = create_app()
 @app.route('/')
@@ -22,7 +25,17 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == "POST":
+        username = request.form.get('username')
+        password = request.form.get('password')
+        if not user_exists(username) or not password_correct(username, password):
+            error = "username or password is incorrect"
+        else:
+            user = db.session.execute(db.select(User).where(User.name == username)).scalar()
+            login_user(user)
+        return render_template('login.html')
+    elif request.method == "GET":
+        return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
