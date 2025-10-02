@@ -57,3 +57,8 @@ def register():
         return render_template('register.html', error=error)
     elif request.method == 'GET':
         return render_template('register.html')
+
+@app.route('/test')
+def test():
+    print(current_user.name)
+    return redirect(request.referrer)
