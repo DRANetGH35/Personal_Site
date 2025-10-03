@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from extensions import db
 from models import User
 from app import create_app
@@ -11,6 +11,8 @@ def user_exists(username):
             return True
     except AttributeError:
         return False
+    return False
+
 def password_correct(username, password):
     user = db.session.execute(db.select(User).where(User.name == username)).scalar()
     return check_password_hash(user.password, password)
@@ -36,8 +38,9 @@ def login():
             login_user(user)
             return redirect(url_for('index'))
         return render_template('login.html', error=error)
-    elif request.method == "GET":
+    else: # request method GET
         return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -55,8 +58,13 @@ def register():
             db.session.add(User(name=username, password=generate_password_hash(entered_password, method="pbkdf2:sha256", salt_length=8), is_admin=False))
             db.session.commit()
         return render_template('register.html', error=error)
-    elif request.method == 'GET':
+    else: # request method GET
         return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/test')
 def test():
