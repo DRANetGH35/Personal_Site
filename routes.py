@@ -68,5 +68,6 @@ def logout():
 
 @app.route('/test')
 def test():
-    print(current_user.name)
+    if current_user.is_authenticated:
+        print(current_user.name)
     return redirect(request.referrer)
