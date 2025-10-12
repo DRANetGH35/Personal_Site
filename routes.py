@@ -66,6 +66,23 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/profile/<username>')
+def profile(username):
+    user = db.session.execute(db.select(User).where(User.name == username)).scalar()
+    return render_template('profile.html')
+
+@app.route('/aboutme')
+def aboutme():
+    return render_template('aboutme.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
 @app.route('/test')
 def test():
     if current_user.is_authenticated:
