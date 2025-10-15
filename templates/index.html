@@ -1,18 +1,21 @@
 {% extends "base.html" %} {% block content %}
 
 {% include 'navbar.html' %}
-<body class="text-center">
-<div class="cover-container mx-auto my-4 py-4" style="width: 50%;">
-    <main class="px-3">
+<div class="container">
+<div class="text-center w-100 w-lg-50 mx-auto">
         <h1>Devan Aptaker</h1>
         <h4>Python Developer</h4>
-        <p class="lead">git, gunicorn, nginx, pandas, numpy, matplotlib scikit_learn, bootstrap, flask, flask_login, wekzeug, jinja, wtforms, sqlite, sqlalchemy, postgresql, sqlite, tkinter, pysimplegui, pillow, smtp, turtle, os, csv, json, requests, beautiful_soup, selenium, </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 py-3">
+          {% for tech in ['git', 'gunicorn', 'nginx', 'pandas', 'numpy', 'matplotlib', 'scikit-learn', 'bootstrap', 'flask', 'flask_login', 'werkzeug', 'jinja', 'wtforms', 'sqlite', 'sqlalchemy', 'postgresql', 'tkinter', 'pysimplegui', 'pillow', 'smtp', 'turtle', 'os', 'csv', 'json', 'requests', 'beautifulsoup', 'selenium'] %}
+            <span class="badge bg-secondary-subtle">{{ tech }}</span>
+          {% endfor %}
+        </div>
         <p class="lead">
-            <a href="contact" class="btn btn-lg btn-light fw-bold border-white bg-white">Contact</a>
+            <a href="contact" class="btn btn-lg btn-secondary fw-bold">Contact</a>
         </p>
-    </main>
 </div>
-</body>
+</div>
+
 
 {% include 'footer.html' %}
 

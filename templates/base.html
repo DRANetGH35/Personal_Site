@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 
 <html lang="en" data-bs-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
-</head>
-<style>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
 
-#outer-container{
-    position: relative;
-    height: 100vh;
-    width: 100%;
-}
-#background-overlay{
-    background-image: url('static/images/STScI-01EVT1JXFVNW9X54XA378CCK1P.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    opacity: .1;
-}
-#content-layer{
-    position: relative;
-}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+    </head>
+    <style>
 
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div id="outer-container">
-<div id="background-overlay"></div>
-<div id="content-layer">
-{% block content %}
-{% endblock %}
-</div>
-</div>
+        #outer-container{
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+        #background-overlay{
+            background-image: url('static/images/STScI-01EVT1JXFVNW9X54XA378CCK1P.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            opacity: .1;
+        }
+        #content-layer{
+            position: relative;
+        }
+
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <body>
+        <div id="outer-container">
+            <div id="background-overlay"></div>
+                <div id="content-layer">
+                {% block content %}
+                {% endblock %}
+                </div>
+        </div>
+    </body>
 </html>
 
 
