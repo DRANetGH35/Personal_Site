@@ -1,8 +1,26 @@
 {% extends "base.html" %} {% block content %}
 {% include 'navbar.html' %}
 
-<h1>Page under construction</h1>
+<body>
+<div class="py-4 mx-auto text-center center" style="margin-top: 25vh;">
+    <h1>Leave me a message</h1>
+    <div>
+        <form method="post" action="contact" class="container border rounded" style="padding: 10px;  width: 400px;">
+                <label class="form-label" style="justify:right;"style="width: 350px">Your E-mail address</label>
+                <input class="form-text" type="email" id="email" name="email" style="width: 250px;">
+                <label class="form-label" style="width: 350px">Subject</label>
+                <input class="form-text" type="text" id="subject" name="subject" style="width: 250px;">
+                <label class="form-label" style="width: 350px;">Message</label>
+                <textarea name=message id="mytextarea" style="width: 350px;"></textarea>
+                <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
 
+        </form>
+    </div>
+    {% if error %}
+    <p class="form-label" id="errors" style="color: red;">{{ error }}</p>
+    {% endif %}
+</div>
+</body>
 {% include 'footer.html' %}
 
 {% endblock %}

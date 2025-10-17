@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
-from extensions import db
+from extensions import db, emailpsswd
 from models import User
 from app import create_app
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -75,8 +75,14 @@ def profile(username):
 def aboutme():
     return render_template('aboutme.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == "POST":
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+        print(email, subject, message)
+        return render_template('message_sent.html')
     return render_template('contact.html')
 
 @app.route('/blog')
