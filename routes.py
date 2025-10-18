@@ -86,6 +86,7 @@ def contact():
         message = f"""Email address: {email}, Message: 
 {message}"""
         send_email('devanaptaker@gmail.com', subject, message)
+        send_email(email, "Your message has been sent!", "Thanks for contacting dradigital, your message has been sent.")
         return render_template('message_sent.html')
     return render_template('contact.html')
 
