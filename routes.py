@@ -1,5 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
+
+from Email import send_email
 from extensions import db, emailpsswd
 from models import User
 from app import create_app
@@ -81,7 +83,9 @@ def contact():
         email = request.form.get('email')
         subject = request.form.get('subject')
         message = request.form.get('message')
-        print(email, subject, message)
+        message = f"""Email address: {email}, Message: 
+{message}"""
+        send_email('devanaptaker@gmail.com', subject, message)
         return render_template('message_sent.html')
     return render_template('contact.html')
 

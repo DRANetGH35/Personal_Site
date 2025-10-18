@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 {% include 'navbar.html' %}
-<body>
+
 <div class="py-4 mx-auto text-center center" style="margin-top: 25vh;">
     <h1>Log In</h1>
     <form method="post" action="login" class="container border rounded" style="padding: 10px;  width: 325px;">
@@ -35,7 +35,7 @@
     {% endif %}
     <a class=btn href="/register">Register</a>
 </div>
-</body>
+
 {% include 'footer.html' %}
 
 {% endblock %}
