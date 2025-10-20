@@ -1,8 +1,19 @@
 {% extends "base.html" %} {% block content %}
 {% include 'navbar.html' %}
-
-<h1>Page under construction</h1>
-
+<div class="container">
+<div class="text-center w-100 w-lg-50 mx-auto">
+        <h1>Devan Aptaker</h1>
+        <h4>Python Developer</h4>
+        <div style="font-family: var(--bs-body-font-family); margin-top:5vh; margin-bottom:5vh; padding:50px; background-color: rgba(0,0,0, 0.4); border-radius:50px;">
+        <h4 style=>Full stack developer</h4>
+            <div class="d-flex flex-wrap justify-content-center gap-2 py-3">
+              {% for tech in ['git', 'gunicorn', 'nginx', 'pandas', 'numpy', 'matplotlib', 'scikit-learn', 'bootstrap', 'flask', 'flask_login', 'werkzeug', 'jinja', 'wtforms', 'sqlite', 'sqlalchemy', 'postgresql', 'tkinter', 'pysimplegui', 'pillow', 'smtp', 'turtle', 'os', 'csv', 'json', 'requests', 'beautifulsoup', 'selenium'] %}
+                <span class="badge" style="background-color:black;">{{ tech }}</span>
+              {% endfor %}
+            </div>
+        </div>
+</div>
+</div>
 {% include 'footer.html' %}
 
 {% endblock %}

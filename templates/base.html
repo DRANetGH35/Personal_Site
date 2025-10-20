@@ -15,6 +15,29 @@
     </head>
     <style>
 
+
+        @media screen and (min-width: 601px) {
+            .example {
+            font-size: 70px;
+                }
+            }
+
+        /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+        @media screen and (max-width: 600px) {
+            .example {
+            font-size: 35px;
+          }
+        }
+        @font-face{
+            font-family: 'Forresten';
+            src: url("static/fonts/forresten/Forresten.otf") format("opentype"),
+                url("static/fonts/forresten/Forresten.ttf") format("truetype"),
+                url("static/fonts/forresten/Forresten.woff") format("woff"),
+                url("static/fonts/forresten/Forresten.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
         #outer-container{
             position: relative;
             height: 100vh;
