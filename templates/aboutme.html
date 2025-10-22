@@ -1,16 +1,17 @@
 {% extends "base.html" %} {% block content %}
 {% include 'navbar.html' %}
-<div class="container">
-<div class="text-center w-100 w-lg-50 mx-auto">
-        <h1>Devan Aptaker</h1>
-        <h4>Python Developer</h4>
-        <div style="font-family: var(--bs-body-font-family); margin-top:5vh; margin-bottom:5vh; padding:50px; background-color: rgba(0,0,0, 0.4); border-radius:50px;">
-        <h4 style=>Full stack developer</h4>
+<div class="container" style="margin-top:5vh;">
+<div class="text-center w-100 w-lg-50">
+        <div style="margin-top:5vh; margin-bottom:5vh; padding:50px; background-color: rgba(0,0,0, 0.4); border-radius:50px;">
+        <h4 style="font-family: conthrax;">Full stack developer</h4>
+            <p>I am a python developer passionate about computer science, I have experience with data science, machine learning, web development and more</p>
             <div class="d-flex flex-wrap justify-content-center gap-2 py-3">
               {% for tech in ['git', 'gunicorn', 'nginx', 'pandas', 'numpy', 'matplotlib', 'scikit-learn', 'bootstrap', 'flask', 'flask_login', 'werkzeug', 'jinja', 'wtforms', 'sqlite', 'sqlalchemy', 'postgresql', 'tkinter', 'pysimplegui', 'pillow', 'smtp', 'turtle', 'os', 'csv', 'json', 'requests', 'beautifulsoup', 'selenium'] %}
                 <span class="badge" style="background-color:black;">{{ tech }}</span>
               {% endfor %}
             </div>
+            <h4 style="font-family: conthrax;">Hobbies</h4>
+            <p>My hobbies include gaming, working out, playing guitar, building PCs, astrophotography, learning, and building new projects</p>
         </div>
 </div>
 </div>
