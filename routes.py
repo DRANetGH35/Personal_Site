@@ -99,3 +99,7 @@ def test():
     if current_user.is_authenticated:
         print(current_user.name)
     return redirect(request.referrer)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html")
