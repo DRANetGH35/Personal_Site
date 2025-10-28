@@ -6,7 +6,6 @@ import os
 def send_email(address, subject, message):
     my_email = "dradigitalmessenger@gmail.com"
     password = os.environ.get("EMAIL_PASSWORD")
-    print(password)
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(user=my_email, password=password)
