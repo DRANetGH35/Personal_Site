@@ -98,6 +98,10 @@ def contact():
 def blog():
     return render_template('blog.html')
 
+@app.route('/Marley_Gallery')
+def marley_gallery():
+    return render_template('marley_gallery.html')
+
 @app.route('/test')
 def test():
     user_id = os.environ.get('ASTRONOMY_ID')
