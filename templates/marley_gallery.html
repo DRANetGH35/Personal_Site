@@ -2,9 +2,11 @@
 {% include 'navbar.html' %}
 
 
-<div class="py-4 mx-auto text-center center" style="font-family:conthrax; margin-top: 15vh;">
+<div class="mx-auto text-center center" style="font-family:conthrax;">
     <div>
-        <img src="https://res.cloudinary.com/dlmntdz7q/image/upload/v1767072462/IMG_8364_gtcybs.webp" alt="..." class="img-thumbnail">
+        {% for image in image_list %}
+        <img src="{{ image }}" alt="..." class="img-thumbnail">
+        {% endfor %}
     </div>
 </div>
 
