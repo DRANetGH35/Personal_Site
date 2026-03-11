@@ -77,6 +77,7 @@ def profile(username):
 def aboutme():
     return render_template('aboutme.html')
 
+'''
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == "POST":
@@ -89,6 +90,7 @@ def contact():
         send_email(email, "Your message has been sent!", "Thanks for contacting dradigital, your message has been sent.")
         return render_template('message_sent.html')
     return render_template('contact.html')
+'''
 
 @app.route('/blog')
 def blog():
