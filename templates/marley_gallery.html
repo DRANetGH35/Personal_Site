@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+{% include 'navbar.html' %}
+
+
+<div class="mx-auto text-center center" style="font-family:conthrax;">
+    <div>
+        {% for image in image_list %}
+        <img src="{{ image }}" alt="..." class="img-thumbnail">
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

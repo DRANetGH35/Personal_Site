@@ -1,10 +1,11 @@
 import smtplib
 import pandas as pd
 import datetime
+import os
 
 def send_email(address, subject, message):
     my_email = "dradigitalmessenger@gmail.com"
-    password = "mxwc ojhl jiwg bptq"
+    password = os.environ.get("EMAIL_PASSWORD")
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(user=my_email, password=password)

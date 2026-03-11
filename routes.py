@@ -1,5 +1,10 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
+import os
+from PIL import Image
+import base64
+import requests
+from Cloudinary import list_images
 
 from Email import send_email
 from extensions import db, emailpsswd
@@ -96,8 +101,48 @@ def contact():
 def blog():
     return render_template('blog.html')
 
+@app.route('/Marley_Gallery')
+def marley_gallery():
+    image_list = list_images()
+    return render_template('marley_gallery.html', image_list=image_list)
+
 @app.route('/test')
 def test():
-    if current_user.is_authenticated:
-        print(current_user.name)
-    return redirect(request.referrer)
+    user_id = os.environ.get('ASTRONOMY_ID')
+    user_password = os.environ.get('ASTRONOMY_PASSWORD')
+    userpass = f"{user_id}:{user_password}"
+    auth_string = base64.b64encode(userpass.encode()).decode()
+    url = "https://api.astronomyapi.com/api/v2/studio/moon-phase"
+    headers = {f"Authorization": f"Basic {auth_string}"}
+
+    payload = {
+        "format": "png",
+        "style": {
+            "moonStyle": "sketch",
+            "backgroundStyle": "stars",
+            "backgroundColor": "red",
+            "headingColor": "white",
+            "textColor": "red"
+        },
+        "observer": {
+            "latitude": 34,
+            "longitude": -118,
+            "date": "2025-12-15"
+        },
+        "view": {
+            "type": "portrait-simple",
+            "orientation": "south-up"
+        }
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    link = response.json()['data']['imageUrl']
+    return redirect(link)
+
+@app.route('/test2')
+def test2():
+    print(list_images())
+    return redirect(url_for('index'))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html")
