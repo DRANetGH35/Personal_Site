@@ -1,26 +1,505 @@
-{% extends "base.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DRADigital — Full-stack Python developer. Flask, data systems, production infrastructure." />
+  <title>DRADigital | Full-Stack Python Developer</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-{% include 'navbar.html' %}
-<div class="container">
-<div style="font-family: conthrax; margin-top:50px;" class="text-center w-100 w-lg-50 mx-auto">
-        <h1 style="font-family: Forresten;" class="example">DRA Digital</h1>
-        <h2 style="font-family: Forresten;">Welcome</h2>
-        <div class="container" style="width:50vh; margin-top:5vh; margin-bottom:5vh; padding:50px; background-color: rgba(0,0,0, 0.4); border-radius:50px;">
-            <h4>Web development</h4>
-            <h4>Python</h4>
-            <h4>Data Analytics</h4>
-            <h4>Machine Learning</h4>
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-2: #27272a;
+      --border: #3f3f46;
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --accent: #a78bfa;
+      --accent-2: #c4b5fd;
+      --green: #4ade80;
+      --radius: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { color: #ddd6fe; }
+
+    /* Layout shell */
+    .shell {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Top bar */
+    header {
+      padding: 1.5rem 0 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    .top-links {
+      display: flex; gap: 1.4rem; font-size: 0.875rem;
+    }
+    .top-links a { color: var(--muted); }
+    .top-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.9rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    .meta-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+    }
+    .actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #1e1b4b;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Sections */
+    section {
+      padding: 2.75rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-head h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+    .section-head span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* About */
+    .about-text {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 620px;
+    }
+    .about-text p + p { margin-top: 0.9rem; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    /* Skills */
+    .skill-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .skill-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding-top: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.78rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    /* Projects */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.15s;
+    }
+    .project:hover {
+      border-color: #5b21b6;
+    }
+    .project h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .project p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .project-tech {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+    }
+    .project-tech span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+    }
+    .project-side {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+    .status {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--green);
+      background: rgba(74, 222, 128, 0.1);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+    }
+    .project-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent-2);
+      white-space: nowrap;
+    }
+
+    /* Hobbies */
+    .hobby-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hobby {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+    }
+    .cta-block h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .cta-block p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+      .skill-row {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+      .project {
+        grid-template-columns: 1fr;
+      }
+      .project-side {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .top-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <header>
+      <a href="#" class="logo">DRA<span>Digital</span></a>
+      <nav class="top-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <h1>Full-stack Python developer<br>building <em>production systems</em></h1>
+      <p>
+        Flask applications, clean data models, authentication, and the Linux infrastructure that keeps them reliable. Focused on tools people actually use.
+      </p>
+      <div class="hero-meta">
+        <span class="meta-pill">Flask · SQLAlchemy</span>
+        <span class="meta-pill">Gunicorn + Nginx</span>
+        <span class="meta-pill">pandas · scikit-learn</span>
+        <span class="meta-pill">Linux · systemd</span>
+      </div>
+      <div class="actions">
+        <a href="#projects" class="btn btn-primary">See projects</a>
+        <a href="#contact" class="btn btn-ghost">Contact</a>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="section-head">
+        <h2>About</h2>
+        <span>/ me</span>
+      </div>
+      <div class="about-text">
+        <p>
+          I build and maintain practical web applications end-to-end. That means solid Flask backends, thoughtful SQLAlchemy models and migrations, working authentication, and the full deployment path — Gunicorn, Nginx reverse proxies, Certbot SSL, systemd services, and firewall rules.
+        </p>
+        <p>
+          When the problem needs it I also work with the data stack (pandas, NumPy, scikit-learn). The goal is always the same: something that ships, stays online, and is still understandable six months later.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <span>/ stack</span>
+      </div>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="skill-label">Web / Backend</div>
+          <div class="skill-tags">
+            <span class="tag">Flask</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">Jinja2</span>
+            <span class="tag">WTForms</span>
+            <span class="tag">Flask-Login</span>
+            <span class="tag">Werkzeug</span>
+            <span class="tag">Bootstrap</span>
+            <span class="tag">Alembic</span>
+          </div>
         </div>
-        <div>
-        <a style="margin:10px;" href="/aboutme" class="btn btn-lg btn-light fw-bold">About Me</a>
-        <br>
-        <a style="margin:10px;" href="/contact" class="btn btn-lg btn-secondary fw-bold">Contact Me</a>
+        <div class="skill-row">
+          <div class="skill-label">Data</div>
+          <div class="skill-tags">
+            <span class="tag">pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">matplotlib</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
         </div>
-    
-</div>
-</div>
+        <div class="skill-row">
+          <div class="skill-label">Infrastructure</div>
+          <div class="skill-tags">
+            <span class="tag">Gunicorn</span>
+            <span class="tag">Nginx</span>
+            <span class="tag">Certbot</span>
+            <span class="tag">systemd</span>
+            <span class="tag">UFW</span>
+            <span class="tag">WireGuard</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Git</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Also</div>
+          <div class="skill-tags">
+            <span class="tag">Requests</span>
+            <span class="tag">BeautifulSoup</span>
+            <span class="tag">Selenium</span>
+            <span class="tag">Pillow</span>
+            <span class="tag">SMTP</span>
+            <span class="tag">itsdangerous</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <span>/ live</span>
+      </div>
+      <div class="project-list">
 
+        <article class="project">
+          <div>
+            <h3>Blood Pressure Tracker</h3>
+            <p>Health logging app with user accounts, historical data, and secure storage. Built for daily use and long-term trend visibility.</p>
+            <div class="project-tech">
+              <span>Flask</span><span>SQLAlchemy</span><span>Auth</span><span>Charts</span>
+            </div>
+          </div>
+          <div class="project-side">
+            <span class="status">Live</span>
+            <a href="https://bloodpressure.dradigital.net" class="project-link" target="_blank" rel="noopener">Open →</a>
+          </div>
+        </article>
 
+        <article class="project">
+          <div>
+            <h3>Aircraft Airworthiness Log</h3>
+            <p>Tach-time and maintenance tracking for aircraft. Clean models, Alembic migrations, and a practical interface for flight hours and inspections.</p>
+            <div class="project-tech">
+              <span>Flask</span><span>SQLAlchemy</span><span>Alembic</span><span>Migrations</span>
+            </div>
+          </div>
+          <div class="project-side">
+            <span class="status">Live</span>
+            <a href="https://airworthiness.dradigital.net" class="project-link" target="_blank" rel="noopener">Open →</a>
+          </div>
+        </article>
 
-{% endblock %}
+        <article class="project">
+          <div>
+            <h3>Multi-App Platform</h3>
+            <p>This domain: multiple Flask apps under Nginx reverse proxy with SSL, systemd services, and isolated environments. Ongoing work on auth, sessions, and email flows.</p>
+            <div class="project-tech">
+              <span>Nginx</span><span>Gunicorn</span><span>Certbot</span><span>systemd</span>
+            </div>
+          </div>
+          <div class="project-side">
+            <span class="status">Active</span>
+            <a href="#about" class="project-link">Details →</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Outside work</h2>
+        <span>/ hobbies</span>
+      </div>
+      <div class="hobby-row">
+        <span class="hobby">Gaming</span>
+        <span class="hobby">Building PCs</span>
+        <span class="hobby">Guitar</span>
+        <span class="hobby">Astrophotography</span>
+        <span class="hobby">Working out</span>
+        <span class="hobby">Learning</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="cta-block">
+        <h2>Want to build something solid?</h2>
+        <p>Custom tools, data-backed apps, or getting a Flask project into production. Open to interesting problems.</p>
+        <a href="mailto:devanaptaker@dradigital.net" class="btn btn-primary">Get in touch</a>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 DRADigital</div>
+      <div style="display:flex; gap:1.25rem;">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
