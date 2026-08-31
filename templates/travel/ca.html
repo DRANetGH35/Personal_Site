@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://jsdelivr.net">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="DRADigital — Full-stack Python developer. Flask, data systems, production infrastructure." />
   <title>DRADigital</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -313,6 +314,11 @@
       }
       .top-links { display: none; }
     }
+    .drivetime{
+        margin-top:auto;
+        margin-bottom: auto;
+        height: 2rem;
+    }
   </style>
 </head>
 <body>
@@ -327,171 +333,77 @@
         <a href="#contact">Contact</a>
       </nav>
     </header>
-
-    <div class="hero">
-      <h1>Full-stack Python developer<br>building <em>production systems</em></h1>
-      <p>
-        Flask applications, clean data models, authentication, and the Linux infrastructure that keeps them reliable. Focused on tools people actually use.
-      </p>
-      <div class="hero-meta">
-        <span class="meta-pill">Flask · SQLAlchemy</span>
-        <span class="meta-pill">Gunicorn + Nginx</span>
-        <span class="meta-pill">pandas · scikit-learn</span>
-        <span class="meta-pill">Linux · systemd</span>
-      </div>
-      <div class="actions">
-        <a href="#projects" class="btn btn-primary">See projects</a>
-        <a href="/travelca" class="btn btn-primary">Travel Ca</a>
-        <a href="#contact" class="btn btn-ghost">Contact</a>
-      </div>
-    </div>
-
-    <section id="about">
-      <div class="section-head">
-        <h2>About</h2>
-        <span>/ me</span>
-      </div>
-      <div class="about-text">
-        <p>
-          I build and maintain practical web applications end-to-end. Solid Flask backends, thoughtful SQLAlchemy models and migrations, working authentication, and the full deployment path. Gunicorn, Nginx reverse proxies, Certbot SSL, systemd services, and firewall rules.
-        </p>
-        <p>
-          I also work with the data stack (pandas, NumPy, scikit-learn). The goal is: my projects stay online and are still understandable six months later.
-        </p>
-      </div>
+    <section class="section" >
+      <h2 style="text-align:center;">Devan and Marley's travel guide for California</h2>
+      <br>
+      <h4 style="text-align:center;"> For Lisa and John</h4>
     </section>
 
-    <section id="skills">
-      <div class="section-head">
-        <h2>Skills</h2>
-        <span>/ stack</span>
-      </div>
-      <div class="skill-rows">
-        <div class="skill-row">
-          <div class="skill-label">Web / Backend</div>
-          <div class="skill-tags">
-            <span class="tag">Flask</span>
-            <span class="tag">SQLAlchemy</span>
-            <span class="tag">Jinja2</span>
-            <span class="tag">WTForms</span>
-            <span class="tag">Flask-Login</span>
-            <span class="tag">Werkzeug</span>
-            <span class="tag">Bootstrap</span>
-            <span class="tag">Alembic</span>
-          </div>
+    <section class="section">
+      <h1 style="color: var(--accent);"> The Grove</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/grove.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+      <p>Busy shopping center located Near Hollywood on Fairfax and Beverly, includes restaraunts, shopping, theater, etc. along a promenade street. </p>
+    </section>
+
+      </section>
+     <section class="section">
+      <h1 style="color: var(--accent);"> Santa Monica Pier</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/SantaMonicaPier.jpg') }}">
+         <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Thousand Oaks</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/Thousand Oaks.png') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> The Collection</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/collection.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Santa Barbara</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/SantaBarbara.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Neptunes Net</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/neptunes net.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/neptunes net2.jpg') }}">
         </div>
-        <div class="skill-row">
-          <div class="skill-label">Data</div>
-          <div class="skill-tags">
-            <span class="tag">pandas</span>
-            <span class="tag">NumPy</span>
-            <span class="tag">matplotlib</span>
-            <span class="tag">scikit-learn</span>
-            <span class="tag">SQLite</span>
-            <span class="tag">PostgreSQL</span>
-          </div>
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+      <section class="section">
+      <h1 style="color: var(--accent);"> Peterson Auto Museum</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/peterson.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/peterson2.jpg') }}">
         </div>
-        <div class="skill-row">
-          <div class="skill-label">Infrastructure</div>
-          <div class="skill-tags">
-            <span class="tag">Gunicorn</span>
-            <span class="tag">Nginx</span>
-            <span class="tag">Certbot</span>
-            <span class="tag">systemd</span>
-            <span class="tag">UFW</span>
-            <span class="tag">WireGuard</span>
-            <span class="tag">Linux</span>
-            <span class="tag">Git</span>
-          </div>
+          <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+      <section class="section">
+      <h1 style="color: var(--accent);"> Big Bear</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/bigbear.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/bigbear2.webp') }}">
         </div>
-        <div class="skill-row">
-          <div class="skill-label">Also</div>
-          <div class="skill-tags">
-            <span class="tag">Requests</span>
-            <span class="tag">BeautifulSoup</span>
-            <span class="tag">Selenium</span>
-            <span class="tag">Pillow</span>
-            <span class="tag">SMTP</span>
-            <span class="tag">itsdangerous</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <span>/ live</span>
-      </div>
-      <div class="project-list">
-
-        <article class="project">
-          <div>
-            <h3>Blood Pressure Tracker</h3>
-            <p>Health logging app with user accounts, historical data, and secure storage. Built for daily use and long-term trend visibility.</p>
-            <div class="project-tech">
-              <span>Flask</span><span>SQLAlchemy</span><span>Auth</span><span>Charts</span>
-            </div>
-          </div>
-          <div class="project-side">
-            <span class="status">Live</span>
-            <a href="https://bloodpressure.dradigital.net" class="project-link" target="_blank" rel="noopener">Open →</a>
-          </div>
-        </article>
-
-        <article class="project">
-          <div>
-            <h3>Aircraft Airworthiness Log</h3>
-            <p>Tach-time and maintenance tracking for aircraft. Clean models, Alembic migrations, and a practical interface for flight hours and inspections.</p>
-            <div class="project-tech">
-              <span>Flask</span><span>SQLAlchemy</span><span>Alembic</span><span>Migrations</span>
-            </div>
-          </div>
-          <div class="project-side">
-            <span class="status">Live</span>
-            <a href="https://airworthiness.dradigital.net" class="project-link" target="_blank" rel="noopener">Open →</a>
-          </div>
-        </article>
-
-        <article class="project">
-          <div>
-            <h3>Multi-App Platform</h3>
-            <p>This domain: multiple Flask apps under Nginx reverse proxy with SSL, systemd services, and isolated environments. Ongoing work on auth, sessions, and email flows.</p>
-            <div class="project-tech">
-              <span>Nginx</span><span>Gunicorn</span><span>Certbot</span><span>systemd</span>
-            </div>
-          </div>
-          <div class="project-side">
-            <span class="status">Active</span>
-            <a href="#about" class="project-link">Details →</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <h2>Outside work</h2>
-        <span>/ hobbies</span>
-      </div>
-      <div class="hobby-row">
-        <span class="hobby">Gaming</span>
-        <span class="hobby">Building PCs</span>
-        <span class="hobby">Guitar</span>
-        <span class="hobby">Astrophotography</span>
-        <span class="hobby">Working out</span>
-        <span class="hobby">Learning</span>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="cta-block">
-        <h2>Want to build something solid?</h2>
-        <p>Custom tools, data-backed apps, or getting a Flask project into production. Open to interesting problems.</p>
-        <a href="mailto:devanaptaker@dradigital.net" class="btn btn-primary">Get in touch</a>
-      </div>
-    </section>
+          <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
 
     <footer>
       <div>© 2026 DRADigital</div>

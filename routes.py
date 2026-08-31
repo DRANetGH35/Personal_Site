@@ -32,6 +32,10 @@ def index():
         logged_in = True
     return render_template('index.html', logged_in=logged_in)
 
+@app.route('/travelca')
+def travelca():
+    return render_template('travel/ca.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
