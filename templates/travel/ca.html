@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DRADigital — Full-stack Python developer. Flask, data systems, production infrastructure." />
+  <title>DRADigital</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-2: #27272a;
+      --border: #3f3f46;
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --accent: #a78bfa;
+      --accent-2: #c4b5fd;
+      --green: #4ade80;
+      --radius: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { color: #ddd6fe; }
+
+    /* Layout shell */
+    .shell {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Top bar */
+    header {
+      padding: 1.5rem 0 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    .top-links {
+      display: flex; gap: 1.4rem; font-size: 0.875rem;
+    }
+    .top-links a { color: var(--muted); }
+    .top-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.9rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    .meta-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+    }
+    .actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #1e1b4b;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Sections */
+    section {
+      padding: 2.75rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-head h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+    .section-head span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* About */
+    .about-text {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 620px;
+    }
+    .about-text p + p { margin-top: 0.9rem; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    /* Skills */
+    .skill-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .skill-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding-top: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.78rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    /* Projects */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.15s;
+    }
+    .project:hover {
+      border-color: #5b21b6;
+    }
+    .project h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .project p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .project-tech {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+    }
+    .project-tech span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+    }
+    .project-side {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+    .status {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--green);
+      background: rgba(74, 222, 128, 0.1);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+    }
+    .project-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent-2);
+      white-space: nowrap;
+    }
+
+    /* Hobbies */
+    .hobby-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hobby {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+    }
+    .cta-block h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .cta-block p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+      .skill-row {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+      .project {
+        grid-template-columns: 1fr;
+      }
+      .project-side {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .top-links { display: none; }
+    }
+    .drivetime{
+        margin-top:auto;
+        margin-bottom: auto;
+        height: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <header>
+      <a href="/" class="logo">DRA<span>Digital</span></a>
+      <nav class="top-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <section class="section" >
+      <h2 style="text-align:center;">Devan and Marley's travel guide for California</h2>
+      <br>
+      <h4 style="text-align:center;"> For Lisa and John</h4>
+    </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> The Grove</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/grove.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+      <p>Busy shopping center located Near Hollywood on Fairfax and Beverly, includes restaraunts, shopping, theater, etc. along a promenade street. </p>
+    </section>
+
+      </section>
+     <section class="section">
+      <h1 style="color: var(--accent);"> Santa Monica Pier</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/SantaMonicaPier.jpg') }}">
+         <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Thousand Oaks</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/Thousand Oaks.png') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> The Collection</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/collection.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Santa Barbara</h1>
+      <img style="max-width:100%" src="{{ url_for('static', filename='images/travel/SantaBarbara.jpg') }}">
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <section class="section">
+      <h1 style="color: var(--accent);"> Neptunes Net</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/neptunes net.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/neptunes net2.jpg') }}">
+        </div>
+        <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+      <section class="section">
+      <h1 style="color: var(--accent);"> Peterson Auto Museum</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/peterson.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/peterson2.jpg') }}">
+        </div>
+          <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+      <section class="section">
+      <h1 style="color: var(--accent);"> Big Bear</h1>
+      <div style="display:flex;">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/bigbear.jpg') }}">
+      <img style="border-radius: 5px; border:2px solid grey; max-width:50%" src="{{ url_for('static', filename='images/travel/bigbear2.webp') }}">
+        </div>
+          <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.png') }}"><p style="font-size: 2rem;">~45m drive</p></div>
+       <p>lorem ipsum dolor sit amet consectetur adipiscing elit fugiat tempore provident ex voluptas amet dolorum eiusmod id dolore quos voluptate reprehenderit elit cumque blanditiis voluptatum dolor qui ad repellendus at ut optio non libero autem accusamus in provident id aliquip exercitation est at dolor atque et qui officia facilis id</p>
+     </section>
+
+    <footer>
+      <div>© 2026 DRADigital</div>
+      <div style="display:flex; gap:1.25rem;">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
