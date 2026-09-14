@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 from datetime import timedelta
 from sqlalchemy import select
 from extensions import db, login_manager, bootstrap
@@ -16,6 +17,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
+    migrate = Migrate(app, db)
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -26,8 +28,8 @@ def create_app():
             return None
 
 
-    with app.app_context():
-        db.create_all()
+    #with app.app_context():
+    #    db.create_all()
 
 
 
