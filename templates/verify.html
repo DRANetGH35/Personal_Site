@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<div class="shell">
+{% include 'navbar.html' %}
+    <section style="text-align:center;">
+    <h1>Verify</h1>
+    <form method="post" action="verify" class="container border rounded" style="padding: 10px;  width: 325px;">
+        <table>
+            <tr>
+                <td>
+                <label class="form-label" style="justify:right;">verification code</label>
+                </td>
+                <td>
+                <input class="form-text" type="text" id="verification_code" name="verification_code">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                <input class="btn btn-primary" type="submit" id="submit" name="sumbit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    {% if error %}
+    <p class="form-label" id="errors" style="color: red;">{{ error }}</p>
+    {% endif %}
+    </section>
+    {% include 'footer.html' %}
+    </div>
+
+{% endblock %}
+

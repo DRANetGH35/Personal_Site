@@ -8,7 +8,7 @@
         <a href="/#contact">Contact</a>
         {% if current_user.is_authenticated %}
             {% if not current_user.verified %}
-        <a href="/verify">Verify</a>
+                <a href="/verify">Verify</a>
             {% endif %}
         <a href="/logout">Logout</a>
         {% else %}

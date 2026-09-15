@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 import os, random
 from PIL import Image
 import base64
@@ -69,6 +69,18 @@ def register():
         return render_template('register.html', error=error)
     else: # request method GET
         return render_template('register.html')
+
+@login_required
+@app.route('/verify', methods=['GET', 'POST'])
+def verify():
+    if request.method == 'POST':
+        verification_code = str(request.form.get('verification_code'))
+        if request.form.get("verification_code") == current_user.verification_code:
+            current_user.set_verified(True)
+            error = "incorrect code"
+            return render_template('index.html', current_user=current_user, error=error)
+        return redirect(url_for('index'))
+    return render_template('verify.html')
 
 @app.route('/logout')
 def logout():
