@@ -518,28 +518,34 @@
         <h2>Comments</h2>
         <span>/ post a comment</span>
         </div>
+        {% if not current_user.is_authenticated %}
+        <a href="/login">login to post a comment</a>
+        {% elif not current_user.verified %}
+        <a href="/verify">Verify your account to post a comment</a>
+        {% else %}
         <div class="comment" style="display:flex;">
-            <form style="width: 100%;">
+            <form style="width: 100%;" action="/comment" method="post">
                 <table>
-                    <tr><textarea style="resize:both; width: 100%;" type="text"></textarea></tr>
+                    <tr><textarea id="text" name="text" style="resize:both; width: 100%;" type="text"></textarea></tr>
                     <td><input value="Post" type="submit" class="btn btn-primary"></td>
                 </table>
 
             </form>
         </div>
+        {% endif %}
+
+    {% for comment in comments %}
         <div class="comment">
-            <h5 style="color: var(--accent);">Username</h5>
-            <p style="color: var(--muted);">9-15-2026</p>
+            <h5 style="color: var(--accent);">{{ comment.user.name }}</h5>
+            <p style="color: var(--muted);">{{ comment.created }}</p>
             <div>
                 {% if current_user.is_admin %}
-                <a class="btn-del">delete</a>
+                <a href="/delete_comment/{{ comment.id }}" class="btn-del">delete</a>
                 {% endif %}
             </div>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit irure non. Laborum lorem eiusmod anim dolore incididunt mollit aliquip. Tempor laboris est dignissimos aliquip at fugiat, exercitation eu cupidatat. Consequat aliquip exercitation, laboris sunt accusamus nulla qui aute reprehenderit culpa sunt. Culpa sunt occaecat irure eu pariatur amet in, aliquip consequat proident ex.</p>
+            <p>{{ comment.text }}</p>
         </div>
-
-    {% for comment in comments %}
     {% endfor %}
     </section>
 

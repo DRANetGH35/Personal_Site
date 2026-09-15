@@ -4,10 +4,12 @@ import os, random
 from PIL import Image
 import base64
 import requests
+from sqlalchemy import select
+from decorators import admin_required
 from Cloudinary import list_images
-
+from datetime import datetime
 from extensions import db, send_verification_email
-from models import User
+from models import User, Comment
 from app import create_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -30,7 +32,8 @@ def index():
 
 @app.route('/travelca')
 def travelca():
-    return render_template('travel/ca.html')
+    comments = db.session.execute(select(Comment)).scalars().all()
+    return render_template('travel/ca.html', comments=comments)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -76,11 +79,31 @@ def verify():
     if request.method == 'POST':
         verification_code = str(request.form.get('verification_code'))
         if request.form.get("verification_code") == current_user.verification_code:
-            current_user.set_verified(True)
-            error = "incorrect code"
-            return render_template('index.html', current_user=current_user, error=error)
-        return redirect(url_for('index'))
+            current_user.verified = True
+            db.session.commit()
+
+            return render_template('index.html', current_user=current_user)
+        error = "incorrect code"
+        return redirect(url_for('verify.html', error=error))
     return render_template('verify.html')
+
+@login_required
+@app.route('/comment', methods=['POST'])
+def comment():
+    text = request.form.get('text')
+    today = datetime.today()
+    new_comment = Comment(created=today, user=current_user, text=text)
+    db.session.add(new_comment)
+    db.session.commit()
+    return redirect(request.referrer)
+
+@admin_required
+@app.route('/delete_comment/<int:comment_id>')
+def delete_comment(comment_id):
+    comment = db.session.execute(select(Comment).where(Comment.id == comment_id)).scalar()
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(request.referrer)
 
 @app.route('/logout')
 def logout():
