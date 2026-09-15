@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% extends "base.html" %} {% block content %}
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -513,6 +513,35 @@
           <div style="display:flex; flex-direction:row;"><img class="drivetime" src="{{ url_for('static', filename='images/travel/drivetime.webp') }}"><p style="font-size: 2rem;">~2.5-3.5hr drive</p></div>
        <p>A mountain lake town a couple of hours inland, it's much cooler, and you'll likely find snow in winter. The town is walkable, food, shops, right near the water. Places to ski/snowboard and lots of other snow activities. Worth a whole day if you're gonna take the long drive up there.</p>
      </section>
+    <section class="section">
+        <div class="section-head">
+        <h2>Comments</h2>
+        <span>/ post a comment</span>
+        </div>
+        <div class="comment" style="display:flex;">
+            <form style="width: 100%;">
+                <table>
+                    <tr><textarea style="resize:both; width: 100%;" type="text"></textarea></tr>
+                    <td><input value="Post" type="submit" class="btn btn-primary"></td>
+                </table>
+
+            </form>
+        </div>
+        <div class="comment">
+            <h5 style="color: var(--accent);">Username</h5>
+            <p style="color: var(--muted);">9-15-2026</p>
+            <div>
+                {% if current_user.is_admin %}
+                <a class="btn-del">delete</a>
+                {% endif %}
+            </div>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit irure non. Laborum lorem eiusmod anim dolore incididunt mollit aliquip. Tempor laboris est dignissimos aliquip at fugiat, exercitation eu cupidatat. Consequat aliquip exercitation, laboris sunt accusamus nulla qui aute reprehenderit culpa sunt. Culpa sunt occaecat irure eu pariatur amet in, aliquip consequat proident ex.</p>
+        </div>
+
+    {% for comment in comments %}
+    {% endfor %}
+    </section>
 
     <footer>
       <div>© 2026 DRADigital</div>
@@ -525,3 +554,4 @@
   </div>
 </body>
 </html>
+{% endblock %}

@@ -29,6 +29,8 @@
       --accent: #a78bfa;
       --accent-2: #c4b5fd;
       --green: #4ade80;
+      --red: #ab0300;
+      --red-hover: #d40602;
       --radius: 10px;
     }
 
@@ -132,6 +134,13 @@
     .btn-ghost:hover {
       border-color: var(--accent);
       color: var(--text);
+    }
+    .btn-del{
+        color: var(--red);
+    }
+    .btn-del:hover {
+      color: var(--red-hover);
+      cursor: pointer;
     }
 
     /* Sections */
@@ -305,7 +314,20 @@
       color: var(--muted);
       font-size: 0.85rem;
     }
+    .comment {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.15s;
+      margin: 10px;
+    }
 
+    .comment:hover {
+      border-color: #5b21b6;
+    }
     @media (max-width: 640px) {
       .skill-row {
         grid-template-columns: 1fr;
