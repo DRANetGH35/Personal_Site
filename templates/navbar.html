@@ -1,44 +1,19 @@
 {% block content %}
-<nav style="font-family: conthrax;" class="dark-toggle navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-
-                <li class="nav-item">
-                     <a class="nav-link active navbar-btn" aria-current="page" href="/blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active navbar-btn" aria-current="page" href="/Marley_Gallery">Gallery</a>
-                </li>
-
-            </ul>
-
-             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link navbar-btn" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navbar-btn" href="/aboutme">About Me</a>
-                </li>
-                 {% if logged_in %}
-                <li class="nav-item">
-                    <a class="nav-link navbar-btn" href="/profile">Profile</a>
-                </li>
-                 <li class="nav-item">
-                     <a class="nav-link navbar-btn" href="/logout">Log Out</a>
-                 </li>
-                 {% else %}
-                 <li class="nav-item">
-                     <a class="nav-link navbar-btn" href="/login">Log In</a>
-                 </li>
-                 {% endif %}
-            </ul>
-
-        </div>
-    </div>
-</nav>
+   <header>
+      <a href="/" class="logo">DRA<span>Digital</span></a>
+      <nav class="top-links">
+        <a href="/#about">About</a>
+        <a href="/#skills">Skills</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#contact">Contact</a>
+        {% if current_user.is_authenticated %}
+            {% if not current_user.verified %}
+        <a href="/verify">Verify</a>
+            {% endif %}
+        <a href="/logout">Logout</a>
+        {% else %}
+        <a href="/login">Login</a>
+        {% endif %}
+      </nav>
+    </header>
 {% endblock %}

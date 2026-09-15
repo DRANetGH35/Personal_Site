@@ -1,13 +1,12 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
-import os
+import os, random
 from PIL import Image
 import base64
 import requests
 from Cloudinary import list_images
 
-from Email import send_email
-from extensions import db, emailpsswd
+from extensions import db, send_verification_email
 from models import User
 from app import create_app
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -27,10 +26,7 @@ def password_correct(username, password):
 app = create_app()
 @app.route('/')
 def index():
-    logged_in = False
-    if current_user.is_authenticated:
-        logged_in = True
-    return render_template('index.html', logged_in=logged_in)
+    return render_template('index.html', current_user=current_user)
 
 @app.route('/travelca')
 def travelca():
@@ -58,15 +54,17 @@ def register():
     error = None
     if request.method == "POST":
         username = request.form.get('username')
+        email = request.form.get('email')
         entered_password = request.form.get('password')
         password_confirmation = request.form.get('confirm_password')
-        print(username, entered_password, password_confirmation)
+        verification_code = f"{random.randint(0, 99999):05}"
         if entered_password != password_confirmation:
             error = 'Passwords do not match'
         elif user_exists(username):
             error = 'account with this username already exists'
         else:
-            db.session.add(User(name=username, password=generate_password_hash(entered_password, method="pbkdf2:sha256", salt_length=8), is_admin=False))
+            send_verification_email(verification_code, email)
+            db.session.add(User(name=username, password=generate_password_hash(entered_password, method="pbkdf2:sha256", salt_length=8), is_admin=False, email=email, verification_code=verification_code, verified=False))
             db.session.commit()
         return render_template('register.html', error=error)
     else: # request method GET
@@ -112,35 +110,7 @@ def marley_gallery():
 
 @app.route('/test')
 def test():
-    user_id = os.environ.get('ASTRONOMY_ID')
-    user_password = os.environ.get('ASTRONOMY_PASSWORD')
-    userpass = f"{user_id}:{user_password}"
-    auth_string = base64.b64encode(userpass.encode()).decode()
-    url = "https://api.astronomyapi.com/api/v2/studio/moon-phase"
-    headers = {f"Authorization": f"Basic {auth_string}"}
-
-    payload = {
-        "format": "png",
-        "style": {
-            "moonStyle": "sketch",
-            "backgroundStyle": "stars",
-            "backgroundColor": "red",
-            "headingColor": "white",
-            "textColor": "red"
-        },
-        "observer": {
-            "latitude": 34,
-            "longitude": -118,
-            "date": "2025-12-15"
-        },
-        "view": {
-            "type": "portrait-simple",
-            "orientation": "south-up"
-        }
-    }
-    response = requests.post(url, headers=headers, json=payload)
-    link = response.json()['data']['imageUrl']
-    return redirect(link)
+    return redirect(request.referrer)
 
 @app.route('/test2')
 def test2():
