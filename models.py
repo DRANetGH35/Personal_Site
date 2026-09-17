@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import List
+from typing import List, Optional
 import datetime
 
 from extensions import db
@@ -22,6 +22,9 @@ class Comment(db.Model):
     __tablename__ = "comment"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    parent: Mapped[Optional["Comment"]] = relationship(back_populates="replies", remote_side=[id])
+    parent_id: Mapped[Optional[int]] = mapped_column(ForeignKey("comment.id"))
+    replies: Mapped[List["Comment"]] = relationship(back_populates="parent", cascade="all, delete-orphan")
     created: Mapped[datetime.datetime] = mapped_column(DateTime)
     text: Mapped[str] = mapped_column(String(1000))
     user: Mapped[User] = relationship("User", back_populates="comments")
