@@ -91,10 +91,11 @@ def verify():
 @app.route('/comment', methods=['POST'])
 def comment():
     text = request.form.get('text')
+    parent_id = request.form.get('parent_id')
     today = datetime.today()
-    new_comment = Comment(created=today, user=current_user, text=text)
+    new_comment = Comment(created=today, user=current_user, text=text, parent_id=parent_id)
     db.session.add(new_comment)
-    db.session.commit()
+    db.session.commit() 
     return redirect(request.referrer)
 
 @admin_required

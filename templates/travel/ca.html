@@ -535,17 +535,32 @@
         {% endif %}
 
     {% for comment in comments %}
+        {% if not comment.parent_id %}
         <div class="comment">
             <h5 style="color: var(--accent);">{{ comment.user.name }}</h5>
             <p style="color: var(--muted);">{{ comment.created }}</p>
             <div>
-                {% if current_user.is_admin %}
+                {% if current_user.is_admin or current_user.id == comment.user_id %}
                 <a href="/delete_comment/{{ comment.id }}" class="btn-del">delete</a>
                 {% endif %}
             </div>
 
             <p>{{ comment.text }}</p>
+
+
+            <div class="replies">
+                <form action="/comment" method="post"><input class="reply-btn" type="submit" name="submit" value="Reply"><input class="reply-field" type="text" name="text"><input type="hidden" name="parent_id" value="{{ comment.id }}"></form>
+                {% for reply in comment.replies %}
+                <div class="reply">
+                <p>{{reply.text}}</p>
+                {% if current_user.is_admin or current_user.id == comment.user_id %}
+                <a href="/delete_comment/{{ reply.id }}" class="btn-del">delete</a>
+                {% endif %}
+                </div>
+                {% endfor %}
+            </div>
         </div>
+        {% endif %}
     {% endfor %}
     </section>
 
