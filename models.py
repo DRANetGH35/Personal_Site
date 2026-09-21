@@ -18,6 +18,10 @@ class User(UserMixin, db.Model):
     verification_code: Mapped[str] = mapped_column(String(1000))
     comments: Mapped[List["Comment"]] = relationship(back_populates="user")
 
+    @classmethod
+    def get_by_email(cls, email: str):
+        return cls.query.filter_by(email=email).first()
+
 class Comment(db.Model):
     __tablename__ = "comment"
 

@@ -33,7 +33,10 @@
     {% if error %}
     <p class="form-label" id="errors" style="color: red;">{{ error }}</p>
     {% endif %}
-    <a class=btn href="/register">Register</a>
+    <div style="display:flex; flex-direction: column;">
+    <a href="/forgot_password">Forgot Password?</a>
+    <a href="/register">Register</a>
+    </div>
 </section>
     {% include 'footer.html' %}
     </div>

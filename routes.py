@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 import os, random
 from PIL import Image
@@ -8,10 +8,12 @@ from sqlalchemy import select
 from decorators import admin_required
 from Cloudinary import list_images
 from datetime import datetime
-from extensions import db, send_verification_email
+from extensions import db, send_verification_email, send_reset_link
 from models import User, Comment
 from app import create_app
 from werkzeug.security import check_password_hash, generate_password_hash
+from tokens import generate_reset_token, verify_reset_token
+
 
 def user_exists(username):
     try:
@@ -86,6 +88,34 @@ def verify():
         error = "incorrect code"
         return redirect(url_for('verify.html', error=error))
     return render_template('verify.html')
+
+@app.route('/forgot_password', methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get('email')
+        user = User.get_by_email(email)
+        if user:
+            token = generate_reset_token(email)
+            reset_url = url_for('reset_password', token=token, _external=True)
+            send_reset_link(reset_url, email)
+            print(reset_url)
+        flash('If that account exists, instructions will be sent to your email')
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    email = verify_reset_token(token)
+    if not email:
+        flash("The link is invalid or expired", "danger")
+        return redirect(url_for('forgot_password'))
+    if request.method == "POST":
+        new_password = request.form.get('password')
+        user = User.get_by_email(email)
+
+        user.password = generate_password_hash(new_password, method='pbkdf2:sha256', salt_length=8)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('reset_password.html', token=token)
 
 @login_required
 @app.route('/comment', methods=['POST'])
