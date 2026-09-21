@@ -14,6 +14,15 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site_database.db'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)  # Time the user out after 30 minutes
+    app.config['SERVER_NAME'] = 'dradigital.net'
+    app.config['PERFERRED_URL_SCHEME'] = 'https'
+    app.config['APPLICATION_ROOT']= '/'
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['REMEMBER_COOKIE_SECURE'] = True
+
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
     db.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
