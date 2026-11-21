@@ -22,6 +22,10 @@ class User(UserMixin, db.Model):
     def get_by_email(cls, email: str):
         return cls.query.filter_by(email=email).first()
 
+    @classmethod
+    def get_by_id(cls, id: int):
+        return cls.query.filter_by(id=id).first()
+
 class Comment(db.Model):
     __tablename__ = "comment"
 

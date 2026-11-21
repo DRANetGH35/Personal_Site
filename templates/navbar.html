@@ -10,6 +10,9 @@
             {% if not current_user.verified %}
                 <a href="/verify">Verify</a>
             {% endif %}
+            {% if current_user.is_admin %}
+                <a href="/admin_panel">Admin</a>
+            {% endif %}
         <a href="/logout">Logout</a>
         {% else %}
         <a href="/login">Login</a>

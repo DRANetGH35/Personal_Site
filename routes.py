@@ -1,9 +1,10 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, abort, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 import os, random
 from PIL import Image
 import base64
 import requests
+from functools import wraps
 from sqlalchemy import select
 from decorators import admin_required
 from Cloudinary import list_images
@@ -14,6 +15,21 @@ from app import create_app
 from werkzeug.security import check_password_hash, generate_password_hash
 from tokens import generate_reset_token, verify_reset_token
 
+def logged_in_as_admin():
+    return current_user.is_authenticated and current_user.is_admin == True
+
+
+def admin_only(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        #If id is not 1 then return abort with 403 error
+        if current_user is None:
+            return abort(401)
+        if not logged_in_as_admin():
+            return abort(403)
+        #Otherwise continue with the route function
+        return f(*args, **kwargs)
+    return decorated_function
 
 def user_exists(username):
     try:
@@ -28,6 +44,8 @@ def password_correct(username, password):
     return check_password_hash(user.password, password)
 
 app = create_app()
+
+
 @app.route('/')
 def index():
     return render_template('index.html', current_user=current_user)
@@ -53,6 +71,40 @@ def login():
     else: # request method GET
         return render_template('login.html')
 
+
+@app.route('/admin_panel')
+@admin_only
+def admin_panel():
+    return render_template('admin/panel.html')
+
+@app.route('/admin/users')
+@admin_only
+def admin_users():
+    return render_template('admin/users.html')
+
+@app.route('/admin/fetch_users/<int:page>')
+@admin_only
+def admin_fetch_users(page):
+    per_page = 25
+    table_data = User.query.order_by(User.id.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    results = [{
+        'id': user.id,
+        'name': user.name,
+        'email': user.email,
+        'verification_code': user.verification_code,
+        'verified': user.verified,
+        'is_admin': user.is_admin
+    } for user in table_data]
+    return jsonify({"data": results})
+
+@admin_only
+@app.route('/admin/delete_user/<int:id>')
+@admin_only
+def delete_user(id):
+    user_to_delete = User.get_by_id(id)
+    db.session.delete(user_to_delete)
+    db.session.commit()
+    return redirect(request.referrer)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
